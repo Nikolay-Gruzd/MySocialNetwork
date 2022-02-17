@@ -1,9 +1,11 @@
 import React from 'react'
+import Logo from '../../Images/Logo.png'
+import classes from './Header.module.css'
 
-const Header = () => {
+const Header = (props) => {
     return (
-        <header className='header'>
-            <img src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR34dyR4PdRqvfNi_QIruoGyjHihGJrL98VuA&usqp=CAU'/>
+        <header className={classes.header}>
+            <img src={Logo} alt="Логотип" />
         </header>
     )
 }

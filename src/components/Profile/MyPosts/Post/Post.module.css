@@ -1,0 +1,9 @@
+.post{
+    color: #8d0000;
+}
+
+.post img{
+    width: 70px;
+    height: 65px;
+    border-radius: 100px;
+}

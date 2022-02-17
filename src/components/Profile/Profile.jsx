@@ -1,31 +1,22 @@
 import React from 'react'
+import classes from './Profile.module.css'
+import MyPosts from "./MyPosts/MyPosts";
 
-const Profile = () => {
+const Profile = (props) => {
     return (
-        <div className='content'>
-            <div className=''>
-                <img
-                    src='https://helpx.adobe.com/content/dam/help/en/photoshop/using/convert-color-image-black-white/jcr_content/main-pars/before_and_after/image-before/Landscape-Color.jpg'/>
+        <div className={classes.content}>
+            <div>
+                <img className={classes.wallpaper}
+                     src='https://helpx.adobe.com/content/dam/help/en/photoshop/using/convert-color-image-black-white/jcr_content/main-pars/before_and_after/image-before/Landscape-Color.jpg'
+                />
             </div>
 
             <div>
                 ava+description
             </div>
 
-            <div>
-                my posts
-                <div>
-                    New post
-                </div>
-                <div>
-                    <div>
-                        post 1
-                    </div>
-                    <div>
-                        post 2
-                    </div>
-                </div>
-            </div>
+            <MyPosts />
+
         </div>
     )
 }
