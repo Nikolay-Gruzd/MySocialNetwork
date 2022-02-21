@@ -14,3 +14,7 @@
     grid-area: c;
     background-color: cadetblue;
 }
+
+a{
+    text-decoration: none;
+}
