@@ -1,6 +1,6 @@
-import React from 'react'
-import Logo from '../../Images/Logo.png'
-import classes from './Header.module.css'
+import React from "react"
+import Logo from "../../Images/Logo.png"
+import classes from "./Header.module.css"
 
 const Header = (props) => {
     return (

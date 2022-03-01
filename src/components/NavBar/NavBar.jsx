@@ -8,19 +8,19 @@ const NavBar = (props) => {
     return (
         <nav className={classes.nav}>
             <div>
-                <NavLink to='/profile' className={activeLink} >Profile</NavLink>
+                <NavLink to="/profile" className={activeLink} >Profile</NavLink>
             </div>
             <div>
-                <NavLink to='/dialogs' className={activeLink} >Messages</NavLink>
+                <NavLink to="/dialogs" className={activeLink} >Messages</NavLink>
             </div>
             <div>
-                <NavLink to='/news' className={activeLink} >News</NavLink>
+                <NavLink to="/news" className={activeLink} >News</NavLink>
             </div>
             <div>
-                <NavLink to='/music' className={activeLink} >Music</NavLink>
+                <NavLink to="/music" className={activeLink} >Music</NavLink>
             </div>
             <div>
-                <NavLink to='/settings' className={activeLink} >Settings</NavLink>
+                <NavLink to="/settings" className={activeLink} >Settings</NavLink>
             </div>
         </nav>
     );
