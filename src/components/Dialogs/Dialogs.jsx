@@ -7,8 +7,8 @@ const activeLink = ({isActive}) => isActive ? classes.active : classes.dialog;
 
 const Dialogs = (props) => {
 
-    let dialogsElements = props.state.dialogs.map( d => <DialogsItem name={d.name} id={d.id} activeLink={activeLink}/> );
-    let messagesElements = props.state.messages.map( m => <Message message={m.message} id={m.id} /> );
+    let dialogsElements = props.dialogsPage.dialogs.map( d => <DialogsItem name={d.name} id={d.id} activeLink={activeLink}/> );
+    let messagesElements = props.dialogsPage.messages.map( m => <Message message={m.message} id={m.id} /> );
 
     return (
         <div className={classes.dialogs}>
