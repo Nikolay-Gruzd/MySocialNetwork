@@ -2,7 +2,7 @@ import React from "react";
 import classes from "./Dialogs.module.css"
 import DialogsItem from "./DialogsItem/DialogsItem";
 import Message from "./Message/Message";
-import {sendMessageCreator, updateNewMessageBodyCreator} from "../../redux/state";
+import {sendMessageCreator, updateNewMessageBodyCreator} from "../../redux/reducers/dialogsReducer";
 
 const activeLink = ({isActive}) => isActive ? classes.active : classes.dialog;
 
