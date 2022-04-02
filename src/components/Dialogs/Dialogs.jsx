@@ -1,8 +1,7 @@
 import React from "react";
-import classes from "./Dialogs.module.css"
+import classes from "./Dialogs.module.css";
 import DialogsItem from "./DialogsItem/DialogsItem";
 import Message from "./Message/Message";
-import {sendMessageCreator, updateNewMessageBodyCreator} from "../../redux/reducers/dialogsReducer";
 
 const activeLink = ({isActive}) => isActive ? classes.active : classes.dialog;
 
@@ -12,12 +11,12 @@ const Dialogs = (props) => {
     let messagesElements = props.dialogsPage.messages.map( m => <Message message={m.message} id={m.id} /> );
 
     let onSendMessageClick = () => {
-        props.dispatch(sendMessageCreator());
+        props.sendMessage();
     }
 
     let onNewMessageChange = (e) => {
         let body = e.target.value;
-        props.dispatch(updateNewMessageBodyCreator(body));
+        props.updateNewMessageBody(body);
     }
 
     return (
