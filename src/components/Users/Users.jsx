@@ -11,7 +11,7 @@ let Users = (props) => {
     }
 
     return (
-        <div>
+        <div className={classes.usersBlock}>
             <div>
                 {pages.map(p => {
                     return <span className={props.currentPage === p && classes.selectedPage}
