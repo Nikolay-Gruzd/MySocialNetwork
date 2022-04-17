@@ -2,6 +2,7 @@ import React from 'react';
 
 const ADD_POST = "ADD_POST";
 const UPDATE_NEW_POST_TEXT = "UPDATE_NEW_POST_TEXT";
+const SET_USERS_PROFILE = "SET_USERS_PROFILE";
 
 let initialState = {
     posts: [
@@ -9,7 +10,8 @@ let initialState = {
         {id: 2, message: "I am fine, thanks.", likesCounts: 32},
         {id: 3, message: "Yo", likesCounts: 5}
     ],
-    newPostText: ""
+    newPostText: "",
+    profile: null
 }
 
 const profileReducer = (state = initialState, action) => {
@@ -28,6 +30,11 @@ const profileReducer = (state = initialState, action) => {
                 posts: [...state.posts, newPost],
                 newPostText: ""
             };
+        case SET_USERS_PROFILE:
+            return {
+                ...state,
+                profile: action.profile
+            };
 
         default:
             return state;
@@ -37,5 +44,6 @@ const profileReducer = (state = initialState, action) => {
 
 export const addPost = () => ({type: ADD_POST});
 export const updateNewPostText = (text) => ({type: UPDATE_NEW_POST_TEXT, newText: text});
+export const setUsersProfile = (profile) => ({type: SET_USERS_PROFILE, profile});
 
 export default profileReducer;
