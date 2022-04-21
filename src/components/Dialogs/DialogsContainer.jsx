@@ -9,17 +9,6 @@ let mapStateToProps = (state) => {
     }
 }
 
-// let mapDispatchToProps = (dispatch) => {
-//     return {
-//         updateNewMessageBody: (body) => {
-//             dispatch(updateNewMessageBodyCreator(body));
-//         },
-//         sendMessage: () => {
-//             dispatch(sendMessageCreator());
-//         }
-//     }
-// }
-
 export default connect(mapStateToProps,
     {sendMessage, updateNewMessageBody}
     )(Dialogs);
