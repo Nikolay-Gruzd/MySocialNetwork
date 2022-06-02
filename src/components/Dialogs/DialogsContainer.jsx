@@ -4,23 +4,22 @@ import Dialogs from "./Dialogs";
 import {connect} from "react-redux";
 import {Navigate} from "react-router-dom";
 import {withAuthNavigate} from "../../hoc/withAuthNavigate";
+import {compose} from "redux";
 
 class DialogsContainer extends React.Component {
 
-    componentDidMount(){
+    componentDidMount() {
 
     }
 
-    render(){
+    render() {
         if (!this.props.isAuth) {
-            return <Navigate to={"/login"} />
+            return <Navigate to={"/login"}/>
         }
 
         return <Dialogs {...this.props} />
     }
 }
-
-let AuthNavigateComponent = withAuthNavigate(DialogsContainer);
 
 let mapStateToProps = (state) => {
     return {
@@ -28,4 +27,7 @@ let mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps, {sendMessage, updateNewMessageBody})(AuthNavigateComponent);
+export default compose(
+    connect(mapStateToProps, {sendMessage, updateNewMessageBody}),
+    withAuthNavigate
+)(DialogsContainer)
