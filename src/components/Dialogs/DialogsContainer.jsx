@@ -1,5 +1,5 @@
 import React from "react";
-import {sendMessage, updateNewMessageBody} from "../../redux/reducers/dialogs-reducer";
+import {sendMessage} from "../../redux/reducers/dialogs-reducer";
 import Dialogs from "./Dialogs";
 import {connect} from "react-redux";
 import {Navigate} from "react-router-dom";
@@ -27,7 +27,4 @@ let mapStateToProps = (state) => {
     }
 }
 
-export default compose(
-    connect(mapStateToProps, {sendMessage, updateNewMessageBody}),
-    withAuthNavigate
-)(DialogsContainer)
+export default compose(connect(mapStateToProps, {sendMessage}), withAuthNavigate )(DialogsContainer)

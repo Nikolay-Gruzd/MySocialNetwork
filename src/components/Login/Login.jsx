@@ -1,28 +1,27 @@
 import React from 'react';
 import {Formik, Form, Field, ErrorMessage} from "formik";
 import * as Yup from "yup";
-
+import RedTextError from "../../formikElements/RedTextError";
+import "../../App.css"
 
 const validateLoginForm = values => {
     const errors = {};
     if (!values.email) {
         errors.email = 'Required 1';
     } else if (
-        !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test( values.email )
+        !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
     ) {
         errors.email = 'Invalid email address';
     }
     return errors;
 };
 
-const validationSchemaLoginForm = Yup.object().shape( {
-
+const validationSchemaLoginForm = Yup.object().shape({
     password: Yup.string()
-        .min( 2, "Must be longer than 2 characters" )
-        .max( 5, "Must be shorter than 5 characters" )
-        .required( "Required 2" )
-} );
-
+        .min(2, "Must be longer than 2 characters")
+        .max(5, "Must be shorter than 5 characters")
+        .required("Required 2")
+});
 
 const Login = () => {
 
@@ -39,38 +38,46 @@ const Login = () => {
                 validate={validateLoginForm}
                 validationSchema={validationSchemaLoginForm}
                 onSubmit={(values) => {
-                    console.log( values )
+                    console.log(values)
                 }}
             >
-                {() => (
-                    <Form>
+                {({errors, touched}) =>
+                    (<Form>
                         <div>
                             <Field
-                                name={'email'}
                                 type={'text'}
-                                placeholder={'e-mail'} />
+                                id={'email'}
+                                name={'email'}
+                                placeholder={'e-mail'}
+                                className={errors.email && touched.email ? "errorInput" : null}
+                            />
+                            <ErrorMessage name="email" component={RedTextError}/>
                         </div>
-                        <ErrorMessage name="email" component="div" />
+
 
                         <div>
                             <Field
-                                name={'password'}
                                 type={'password'}
-                                placeholder={'password'} />
+                                id={'password'}
+                                name={'password'}
+                                placeholder={'password'}
+                                className={errors.password && touched.password ? "errorInput" : null}
+                            />
+                            <ErrorMessage name="password" component={RedTextError}/>
                         </div>
-                        <ErrorMessage name="password" component="div" />
+
 
                         <div>
                             <Field
                                 type={'checkbox'}
+                                id='rememberMe'
                                 name={'rememberMe'}
-                                id='rememberMe' />
+                            />
                             <label htmlFor={'rememberMe'}> remember me </label>
                         </div>
 
                         <button type={'submit'}>Login</button>
-                    </Form>
-                )}
+                    </Form>)}
             </Formik>
 
             <div>
