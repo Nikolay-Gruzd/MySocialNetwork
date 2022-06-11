@@ -3,6 +3,10 @@ import {Formik, Form, Field, ErrorMessage} from "formik";
 import * as Yup from "yup";
 import RedTextError from "../../formikElements/RedTextError";
 import "../../App.css"
+import {connect} from "react-redux";
+import {login} from "../../redux/reducers/auth-reducer";
+import {Navigate} from "react-router-dom";
+import Dialogs from "../Dialogs/Dialogs";
 
 const validateLoginForm = values => {
     const errors = {};
@@ -18,67 +22,78 @@ const validateLoginForm = values => {
 
 const validationSchemaLoginForm = Yup.object().shape({
     password: Yup.string()
-        .min(2, "Must be longer than 2 characters")
-        .max(5, "Must be shorter than 5 characters")
+        .min(6, "Must be longer than 6 characters")
+        .max(20, "Must be shorter than 20 characters")
         .required("Required 2")
 });
 
-const Login = () => {
+const LoginForm = (props) => {
+    return (
+        <Formik
+            initialValues={{
+                email: "",
+                password: "",
+                rememberMe: false
+            }}
+            validate={validateLoginForm}
+            validationSchema={validationSchemaLoginForm}
+            onSubmit={(values) => {
+                console.log(values)
+                props.login(values.email, values.password, values.rememberMe)
+            }}
+        >
+            {({errors, touched}) =>
+                (<Form>
+                    <div>
+                        <Field
+                            type={'text'}
+                            id={'email'}
+                            name={'email'}
+                            placeholder={'e-mail'}
+                            className={errors.email && touched.email ? "errorInput" : null}
+                        />
+                        <ErrorMessage name="email" component={RedTextError}/>
+                    </div>
+
+
+                    <div>
+                        <Field
+                            type={'password'}
+                            id={'password'}
+                            name={'password'}
+                            placeholder={'password'}
+                            className={errors.password && touched.password ? "errorInput" : null}
+                        />
+                        <ErrorMessage name="password" component={RedTextError}/>
+                    </div>
+
+
+                    <div>
+                        <Field
+                            type={'checkbox'}
+                            id='rememberMe'
+                            name={'rememberMe'}
+                        />
+                        <label htmlFor={'rememberMe'}> remember me </label>
+                    </div>
+
+                    <button type={'submit'}>Login</button>
+                </Form>)}
+        </Formik>
+    )
+}
+
+const Login = (props) => {
+
+    if (props.isAuth) {
+        return <Navigate to={"/profile"}/>
+    }
 
     return (
         <div>
             <h2> ... Login 555 </h2>
 
-            <Formik
-                initialValues={{
-                    email: "",
-                    password: "",
-                    rememberMe: false
-                }}
-                validate={validateLoginForm}
-                validationSchema={validationSchemaLoginForm}
-                onSubmit={(values) => {
-                    console.log(values)
-                }}
-            >
-                {({errors, touched}) =>
-                    (<Form>
-                        <div>
-                            <Field
-                                type={'text'}
-                                id={'email'}
-                                name={'email'}
-                                placeholder={'e-mail'}
-                                className={errors.email && touched.email ? "errorInput" : null}
-                            />
-                            <ErrorMessage name="email" component={RedTextError}/>
-                        </div>
-
-
-                        <div>
-                            <Field
-                                type={'password'}
-                                id={'password'}
-                                name={'password'}
-                                placeholder={'password'}
-                                className={errors.password && touched.password ? "errorInput" : null}
-                            />
-                            <ErrorMessage name="password" component={RedTextError}/>
-                        </div>
-
-
-                        <div>
-                            <Field
-                                type={'checkbox'}
-                                id='rememberMe'
-                                name={'rememberMe'}
-                            />
-                            <label htmlFor={'rememberMe'}> remember me </label>
-                        </div>
-
-                        <button type={'submit'}>Login</button>
-                    </Form>)}
-            </Formik>
+            <LoginForm login={props.login}/>
 
             <div>
                 ...
@@ -88,4 +103,10 @@ const Login = () => {
     )
 }
 
-export default Login;
+let mapStateToProps = (state) => {
+    return {
+        isAuth: state.auth.isAuth
+    }
+}
+
+export default connect(mapStateToProps, {login})(Login);
