@@ -6,7 +6,6 @@ import "../../App.css"
 import {connect} from "react-redux";
 import {login} from "../../redux/reducers/auth-reducer";
 import {Navigate} from "react-router-dom";
-import Dialogs from "../Dialogs/Dialogs";
 
 const validateLoginForm = values => {
     const errors = {};
@@ -37,12 +36,13 @@ const LoginForm = (props) => {
             }}
             validate={validateLoginForm}
             validationSchema={validationSchemaLoginForm}
-            onSubmit={(values) => {
+            onSubmit={(values, {setStatus, setSubmitting}) => {
                 console.log(values)
-                props.login(values.email, values.password, values.rememberMe)
+                props.login(values.email, values.password, values.rememberMe, setStatus)
+                setSubmitting(false)
             }}
         >
-            {({errors, touched}) =>
+            {({errors, touched, status}) =>
                 (<Form>
                     <div>
                         <Field
@@ -77,6 +77,10 @@ const LoginForm = (props) => {
                         <label htmlFor={'rememberMe'}> remember me </label>
                     </div>
 
+                    <div className="error">
+                        {status}
+                    </div>
+
                     <button type={'submit'}>Login</button>
                 </Form>)}
         </Formik>
@@ -91,12 +95,12 @@ const Login = (props) => {
 
     return (
         <div>
-            <h2> ... Login 555 </h2>
+            <h2>... Login ...</h2>
 
             <LoginForm login={props.login}/>
 
             <div>
-                ...
+                ... ...
             </div>
 
         </div>
