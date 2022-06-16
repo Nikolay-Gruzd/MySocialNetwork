@@ -2,9 +2,9 @@ import React from "react"
 import Profile from "./Profile";
 import {connect} from "react-redux";
 import {getStatus, getUsersProfile, updateStatus} from "../../redux/reducers/profile-reducer";
-import {withAuthNavigate} from "../../hoc/withAuthNavigate";
 import withRouter from "../../hoc/withRouter";
 import {compose} from "redux";
+import {Navigate} from "react-router-dom";
 
 class ProfileContainer extends React.Component {
 
@@ -18,6 +18,10 @@ class ProfileContainer extends React.Component {
     }
 
     render() {
+        if (!this.props.authorizedUserId && !this.props.router.params.userId) {
+            return <Navigate to="/login"/>
+        }
+
         return (
             <Profile
                 {...this.props}
@@ -39,5 +43,4 @@ let mapStateToProps = (state) => ({
 export default compose(
     connect(mapStateToProps, {getUsersProfile, getStatus, updateStatus}),
     withRouter,
-    // withAuthNavigate
 )(ProfileContainer)
